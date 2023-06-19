@@ -1,11 +1,7 @@
-import "./App.css";
+import './App.css'
 
 function App() {
-  return (
-    <>
-      <div>React Grid Layout</div>
-    </>
-  );
+  return <div>React Grid Layout</div>
 }
 
-export default App;
+export default App
