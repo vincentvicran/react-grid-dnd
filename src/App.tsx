@@ -1,46 +1,52 @@
-import GridLayout, {WidthProvider} from 'react-grid-layout'
+import RGL, {WidthProvider} from 'react-grid-layout'
 
 import './App.css'
 import '/node_modules/react-grid-layout/css/styles.css'
 import '/node_modules/react-resizable/css/styles.css'
+import {DraggableHandle} from './components/gridHandle.component'
 
-const GridLayoutWidth = WidthProvider(GridLayout)
+const ReactGridLayout = WidthProvider(RGL)
 
 function App() {
-  const layout = [
-    {i: 'a', x: 0, y: 0, w: 2, h: 2},
-    {i: 'b', x: 0, y: 2, w: 2, h: 2},
-    {i: 'c', x: 2, y: 0, w: 4, h: 2},
-    {i: 'd', x: 4, y: 0, w: 4, h: 2}
-  ]
   return (
     <div style={{width: 500}}>
-      <GridLayoutWidth
+      <ReactGridLayout
         className="layout"
-        layout={layout}
+        // layout={layout}
         cols={6}
         rowHeight={30}
         onLayoutChange={(layout) => console.log({layout})}
         isDroppable
+        isDraggable
+        isResizable={false}
+        autoSize
         // draggableCancel=".grid-item"
         // resizeHandle=".resizable-handle"
-        // draggableHandle=" .draggable-handle .grid-item"
+        // draggableHandle=".react-draggable-handle"
       >
-        <div key="d" className=".draggable-handle">
-          draggable
-        </div>
-        <div key="a" className="grid-item">
-          <div className=".draggable-handle">draggable</div>a
-        </div>
-        <div key="b" className="grid-item">
-          b
-        </div>
-        <div key="c" className="grid-item">
-          c
-        </div>
-      </GridLayoutWidth>
+        {['a', 'b', 'c', 'd'].map((key) => (
+          <DraggableHandle
+            key={key}
+            className="grid-item"
+            data-grid={layout.find((el) => el.i === key)}
+          >
+            {key}
+            {key === 'c' && <div>x</div>}
+            {key === 'c' && <div>x</div>}
+            {key === 'c' && <div>x</div>}
+            {key === 'c' && <div>x</div>}
+          </DraggableHandle>
+        ))}
+      </ReactGridLayout>
     </div>
   )
 }
 
 export default App
+
+const layout = [
+  {i: 'a', x: 0, y: 0, w: 2, h: 2},
+  {i: 'b', x: 0, y: 2, w: 2, h: 2},
+  {i: 'c', x: 2, y: 0, w: 4, h: 4},
+  {i: 'd', x: 4, y: 0, w: 4, h: 2}
+]
